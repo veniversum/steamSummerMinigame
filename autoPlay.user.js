@@ -2,7 +2,7 @@
 // @name /u/wchill Monster Minigame Auto-script w/ auto-click
 // @namespace https://github.com/wchill/steamSummerMinigame
 // @description A script that runs the Steam Monster Minigame for you.
-// @version 4.7.5
+// @version 4.7.4
 // @match *://steamcommunity.com/minigame/towerattack*
 // @match *://steamcommunity.com//minigame/towerattack*
 // @grant none
@@ -16,7 +16,7 @@
 	"use strict";
 
 	//Version displayed to client, update along with the @version above
-	var SCRIPT_VERSION = '4.7.5';
+	var SCRIPT_VERSION = '4.7.4';
 
 	// OPTIONS
 	var clickRate = 20;
@@ -44,8 +44,6 @@
 	var refreshTimer = null;
 	var currentClickRate = enableAutoClicker ? clickRate : 0;
 	var lastLevel = 0;
-	var goldHelmUI = "http://i.imgur.com/ueDBBrA.png";
-	var fixedUI = "http://i.imgur.com/ieDoLnx.png";
 	var trt_oldCrit = function() {};
 	var trt_oldPush = function() {};
 	var trt_oldRender = function() {};
@@ -350,9 +348,9 @@
 
 	function fixActiveCapacityUI() {
 		if(praiseGoldHelm) {
-			w.$J('.tv_ui').css('background-image', 'url(' + goldHelmUI + '')');
+			w.$J('.tv_ui').css('background-image', 'url(http://i.imgur.com/ANl0UCb.png)');
 		} else {
-			w.$J('.tv_ui').css('background-image', 'url(' + fixedUI + ')');
+			w.$J('.tv_ui').css('background-image', 'url(http://i.imgur.com/ieDoLnx.png)');
 		}
 		w.$J('#activeinlanecontainer').css('height', '154px');
 		w.$J('#activitycontainer').css('height', '270px');
@@ -778,6 +776,8 @@
 		}
 		if (level % control.rainingRounds === 0) {
 			if (hasItem(ABILITIES.WORMHOLE)) {
+				return 0;
+			} else if (getActiveAbilityLaneCount(ABILITIES.WORMHOLE) > control.rainingRounds) {
 				return 0;
 			} else {
 				return Math.floor(clickRate/2);
